@@ -4,5 +4,7 @@ const cors = require ("cors")
 app.use(express.json())
 app.use(cors())
 const songRoutes = require ("./routes/songRoutes")
+const churches = require ("./routes/churches")
 app.use("/songs",songRoutes)
+app.use("/churches",churches)
 module.exports= app
