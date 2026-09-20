@@ -15,7 +15,7 @@ const getChurches = async(req,res)=>{
 
 const MyChurch = async (req,res)=>{
   try {
-    const church = req.query;
+    const church = req.query.church;
     const songs = await Song.find({Church:church})
     res.status(200).json(songs)
 } catch (e) {
