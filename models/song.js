@@ -20,7 +20,7 @@ const SongSchema = new mongoose.Schema({
     trim:true,
     required:true
   },
-  Church:{
+  church:{
     type: String,
     default:"Unknown"
   },
@@ -31,6 +31,11 @@ const SongSchema = new mongoose.Schema({
   file:{
     type: String,
     required:true
+  },
+   card:{
+    type:String,
+    required:true,
+    default:"Mary"
   }
 },
       {
