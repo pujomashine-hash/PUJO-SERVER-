@@ -10,18 +10,19 @@ const r2 = require("../services/r2.service")
 const uploadAudio = async (req, res) => {
     try {
         const filePath =
-            path.join(__dirname, "../uploads/audio/005.mp3")
+            path.join(__dirname, "../uploads/audio/0031.mp3")
 
         const command = new PutObjectCommand({
             Bucket: process.env.R2_BUCKET,
-            Key: "songs/005.mp3",
+            Key: "songs/0031.mp3",
             Body: fs.createReadStream(filePath),
             ContentType: "audio/mpeg"
         })
         await r2.send(command)
+      
         res.status(200).json({
             success: true,
-            message: "Uploaded successful"
+            message: "Audio Uploaded successfully"
         })
     } catch (e) {
         console.log(e)
@@ -38,19 +39,34 @@ const getAudioFile = async (req, res) => {
         if (!song) {
             return res.status(400).send("Audio not found")
         }
-
+         const range = req.headers.range;
+      console.log(range);
         const command = new GetObjectCommand({
             Bucket: process.env.R2_BUCKET,
-            Key: song.file 
+            Key: song.file,
+          ...(range&&{Range:range})
         });
 
         const response = await r2.send(command);
 
+if (range) {
+  res.status(206);
+} else {
+  res.status(200);
+}
+
 res.setHeader("Content-Type", "audio/mpeg");
 res.setHeader("Accept-Ranges", "bytes");
-res.setHeader("Cache-Control", "public, max-age=60");
 
-        response.Body.pipe(res);
+if (response.ContentRange) {
+  res.setHeader("Content-Range", response.ContentRange);
+}
+
+if (response.ContentLength) {
+  res.setHeader("Content-Length", String(response.ContentLength));
+}
+
+response.Body.pipe(res);
     } catch (e) {
         res.status(500).send(e.message)
     }

@@ -10,18 +10,18 @@ const r2 = require("../services/r2.service")
 const uploadLyrics = async (req, res) => {
     try {
         const filePath =
-            path.join(__dirname, "../uploads/lyrics/005.txt")
+            path.join(__dirname, "../uploads/lyrics/0031.txt")
 
         const command = new PutObjectCommand({
             Bucket: process.env.R2_BUCKET,
-            Key: "lyrics/005.txt",
+            Key: "lyrics/0031.txt",
             Body: fs.createReadStream(filePath),
             ContentType: "text/plain"
         })
         await r2.send(command)
         res.status(200).json({
             success: true,
-            message: "Uploaded successful"
+            message: "Lyrics Uploaded successfully"
         })
     } catch (e) {
         console.log(e)

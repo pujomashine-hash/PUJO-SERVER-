@@ -6,31 +6,19 @@ require("dotenv").config()
 
         //CREATE 
 try{
-        const churches = 
-[
- {
-   "title":"Namwandama Bwana",
-    "artist":"General choir",
-    "lyrics":"lyrics/004.txt",
-    "category":"General",
-    "church":"Lutheran choir",
-    "image":"Yote.jpg",
-    "file":"songs/004.mp3",
-    "card":"Mary"
- },
-  {
-   "title":"Hapana rafiki kama Yesu",
-    "artist":"General choir",
-    "lyrics":"lyrics/005.txt",
-    "category":"General",
-    "church":"Lutheran choir",
-    "image":"Yote.jpg",
-    "file":"songs/005.mp3",
-    "card":"Mary"
-  }
-]
-        
-          await Churches.insertMany(churches);
+        const churches = await Churches.create ({
+          code:"0031",
+          title:"Ni damu idondokayo",
+          artist:"General choir",
+          lyrics:"lyrics/0031.txt",
+          Church:"Lutheran choir",
+          Category:"Kwaresma",
+          image:"logo.png",
+          file:"songs/0031.mp3",
+          card:"Mary"
+        })
+
+  await churches.save()
         console.log("Song saved")
         res.status(200).json({
           success:true,
