@@ -10,11 +10,11 @@ const r2 = require("../services/r2.service")
 const uploadAudio = async (req, res) => {
     try {
         const filePath =
-            path.join(__dirname, "../uploads/audio/0031.mp3")
+            path.join(__dirname, "../uploads/audio/0062.mp3")
 
         const command = new PutObjectCommand({
             Bucket: process.env.R2_BUCKET,
-            Key: "songs/0031.mp3",
+            Key: "songs/0062.mp3",
             Body: fs.createReadStream(filePath),
             ContentType: "audio/mpeg"
         })

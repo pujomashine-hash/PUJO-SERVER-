@@ -10,11 +10,11 @@ const r2 = require("../services/r2.service")
 const uploadLyrics = async (req, res) => {
     try {
         const filePath =
-            path.join(__dirname, "../uploads/lyrics/0031.txt")
+            path.join(__dirname, "../uploads/lyrics/0061.txt")
 
         const command = new PutObjectCommand({
             Bucket: process.env.R2_BUCKET,
-            Key: "lyrics/0031.txt",
+            Key: "lyrics/0061.txt",
             Body: fs.createReadStream(filePath),
             ContentType: "text/plain"
         })
